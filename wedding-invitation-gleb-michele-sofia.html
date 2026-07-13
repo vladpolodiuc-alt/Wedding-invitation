@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Влад & Зайна — Приглашение на свадьбу</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=Lato:wght@300;400&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --sage: #7a9e7e; --sage-dark: #4a6b4e; --sage-deeper: #2e4a31;
+    --sage-light: #a8c5ab; --sage-pale: #d4e6d5;
+    --gold: #b8a06a; --gold-light: #ddd0a8;
+    --cream: #f7f5f0; --parchment: #ede8df;
+    --text-dark: #1e2e1f; --text-mid: #3d5440; --text-soft: #617a63;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--cream); font-family: 'Montserrat', sans-serif;
+    font-weight: 300; color: var(--text-dark);
+    overflow-x: hidden; -webkit-text-size-adjust: 100%;
+  }
+
+  /* HERO */
+  .hero {
+    position: relative; min-height: 100svh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center; overflow: hidden;
+    background: var(--sage-deeper); padding: 80px 24px 100px;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 90% 55% at 50% 0%, rgba(168,197,171,0.18) 0%, transparent 65%),
+      linear-gradient(170deg, #1a2e1b 0%, #2e4a31 45%, #4a6b4e 100%);
+  }
+  .corner { position: absolute; width: 110px; height: 110px; opacity: 0.38; }
+  .corner svg { width: 100%; height: 100%; }
+  .corner--tl { top: 14px; left: 14px; }
+  .corner--tr { top: 14px; right: 14px; transform: scaleX(-1); }
+  .corner--bl { bottom: 14px; left: 14px; transform: scaleY(-1); }
+  .corner--br { bottom: 14px; right: 14px; transform: scale(-1); }
+
+  .hero-content { position: relative; z-index: 2; width: 100%; max-width: 620px; }
+
+  .hero-eyebrow {
+    font-family: 'Cinzel', serif; font-size: clamp(0.52rem, 2vw, 0.68rem);
+    letter-spacing: 0.38em; color: var(--sage-light); text-transform: uppercase;
+    margin-bottom: 10px; opacity: 0; animation: fadeUp 1.2s 0.2s ease forwards; padding: 0 10px;
+  }
+  .hero-parents {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.1rem, 4.5vw, 1.7rem);
+    font-style: italic; color: var(--gold-light);
+    letter-spacing: 0.06em; line-height: 1.5;
+    margin-bottom: 22px; opacity: 0; animation: fadeUp 1.2s 0.35s ease forwards;
+  }
+  .divider-ornament {
+    display: flex; align-items: center; justify-content: center; gap: 14px;
+    margin: 18px 0; opacity: 0; animation: fadeUp 1.2s 0.5s ease forwards;
+  }
+  .divider-ornament::before, .divider-ornament::after {
+    content: ''; display: block; width: clamp(28px, 8vw, 56px); height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold));
+  }
+  .divider-ornament::after { background: linear-gradient(to left, transparent, var(--gold)); }
+  .diamond { width: 6px; height: 6px; background: var(--gold); transform: rotate(45deg); }
+
+  .names {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 14vw, 7rem); font-weight: 300;
+    color: #f0f5f0; line-height: 1.05; letter-spacing: 0.02em;
+    opacity: 0; animation: fadeUp 1.2s 0.6s ease forwards;
+  }
+  .names em { font-style: italic; color: var(--gold-light); }
+  .names .ampersand { font-size: 0.72em; color: var(--sage-light); display: block; line-height: 1; margin: 0.06em 0; }
+
+  .hero-date {
+    margin-top: 30px; font-family: 'Cinzel', serif;
+    font-size: clamp(0.6rem, 2.4vw, 0.85rem); letter-spacing: 0.28em;
+    color: var(--gold-light); text-transform: uppercase;
+    opacity: 0; animation: fadeUp 1.2s 0.9s ease forwards; line-height: 1.9;
+  }
+
+  .scroll-hint {
+    position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+    color: var(--sage-light); font-family: 'Cinzel', serif; font-size: 0.52rem;
+    letter-spacing: 0.3em; text-transform: uppercase; opacity: 0.65;
+    animation: bounceDown 2s 2.2s infinite;
+  }
+  .scroll-hint::after {
+    content: ''; display: block; width: 1px; height: 28px;
+    background: linear-gradient(to bottom, var(--sage-light), transparent);
+  }
+
+  /* PAGE */
+  .page { background: var(--cream); }
+  .section {
+    max-width: 680px; margin: 0 auto;
+    padding: clamp(52px, 10vw, 84px) clamp(22px, 6vw, 44px); text-align: center;
+  }
+  .section-label {
+    font-family: 'Cinzel', serif; font-size: clamp(0.52rem, 1.9vw, 0.6rem);
+    letter-spacing: 0.42em; color: var(--sage-dark); text-transform: uppercase; margin-bottom: 20px;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.7rem, 6vw, 2.8rem); font-weight: 400;
+    color: var(--sage-deeper); line-height: 1.2; margin-bottom: 22px;
+  }
+  .section-body {
+    font-size: clamp(0.88rem, 3vw, 1.02rem); line-height: 2;
+    color: var(--text-mid); max-width: 520px; margin: 0 auto;
+  }
+  .sage-rule {
+    border: none; height: 1px;
+    background: linear-gradient(to right, transparent, var(--sage), transparent);
+    margin: 0 auto; max-width: 280px; opacity: 0.45;
+  }
+
+  /* DETAILS BAND */
+  .details-band {
+    background: var(--sage-dark);
+    padding: clamp(52px, 10vw, 72px) clamp(22px, 6vw, 44px);
+    text-align: center; position: relative; overflow: hidden;
+  }
+  .details-band::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse 65% 50% at 50% 50%, rgba(168,197,171,0.1) 0%, transparent 70%);
+  }
+  .details-band .inner { position: relative; z-index: 1; max-width: 780px; margin: 0 auto; }
+  .details-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: clamp(28px, 6vw, 48px); margin-top: 40px;
+  }
+  @media (max-width: 400px) { .details-grid { grid-template-columns: 1fr; gap: 30px; } }
+  .detail-icon { font-size: 1.4rem; margin-bottom: 10px; opacity: 0.85; }
+  .detail-label {
+    font-family: 'Cinzel', serif; font-size: 0.54rem;
+    letter-spacing: 0.32em; color: var(--sage-light); text-transform: uppercase; margin-bottom: 8px;
+  }
+  .detail-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.1rem, 3.5vw, 1.35rem); font-weight: 400; color: #f0f5f0; line-height: 1.4;
+  }
+  .detail-value small {
+    display: block; font-size: 0.78rem; font-family: 'Montserrat', sans-serif;
+    font-weight: 300; color: var(--sage-pale); margin-top: 4px;
+  }
+
+  /* RSVP */
+  .rsvp-band {
+    background: var(--parchment);
+    padding: clamp(52px, 10vw, 72px) clamp(22px, 6vw, 44px); text-align: center;
+    border-top: 1px solid rgba(74,107,78,0.15); border-bottom: 1px solid rgba(74,107,78,0.15);
+  }
+  .rsvp-form { max-width: 390px; margin: 32px auto 0; display: flex; flex-direction: column; gap: 14px; }
+  .rsvp-form input {
+    width: 100%; padding: 15px 18px; border: 1px solid rgba(74,107,78,0.28); background: white;
+    font-family: 'Montserrat', sans-serif; font-size: 1rem; color: var(--text-dark);
+    border-radius: 3px; outline: none; -webkit-appearance: none; appearance: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .rsvp-form input:focus { border-color: var(--sage-dark); box-shadow: 0 0 0 3px rgba(74,107,78,0.1); }
+
+  .answer-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 4px; }
+  .answer-btn {
+    padding: 18px 10px; border: 2px solid rgba(74,107,78,0.2); background: white;
+    font-family: 'Montserrat', sans-serif; font-size: clamp(0.62rem, 2.4vw, 0.7rem);
+    font-weight: 400; letter-spacing: 0.08em; color: var(--text-mid);
+    border-radius: 3px; cursor: pointer; transition: all 0.2s;
+    -webkit-tap-highlight-color: transparent; touch-action: manipulation; line-height: 1.5;
+  }
+  .answer-btn .btn-icon { display: block; font-size: 1.4rem; margin-bottom: 6px; }
+  .answer-btn:hover { border-color: var(--sage-dark); color: var(--sage-deeper); }
+  .answer-btn.selected-yes { background: var(--sage-dark); border-color: var(--sage-dark); color: white; }
+  .answer-btn.selected-no  { background: var(--text-mid);  border-color: var(--text-mid);  color: white; }
+  .answer-btn:active { transform: scale(0.97); }
+
+  .btn-rsvp {
+    padding: 17px 40px; background: var(--sage-dark); color: var(--gold-light);
+    font-family: 'Montserrat', sans-serif; font-size: 0.72rem; letter-spacing: 0.22em;
+    text-transform: uppercase; border: none; cursor: pointer; border-radius: 3px;
+    transition: background 0.2s, transform 0.15s; margin-top: 6px;
+    -webkit-tap-highlight-color: transparent; touch-action: manipulation; width: 100%;
+  }
+  .btn-rsvp:hover { background: var(--sage-deeper); }
+  .btn-rsvp:active { transform: scale(0.98); }
+  .btn-rsvp:disabled { opacity: 0.55; cursor: not-allowed; }
+  .rsvp-note { font-size: 0.75rem; color: var(--text-soft); margin-top: 10px; }
+
+  .rsvp-success, .rsvp-decline {
+    display: none; max-width: 390px; margin: 32px auto 0; padding: 36px 28px;
+    background: white; border: 1px solid rgba(74,107,78,0.18); border-radius: 4px; text-align: center;
+  }
+  .confirm-icon { font-size: 2.2rem; margin-bottom: 16px; }
+  .confirm-title { font-family: 'Cormorant Garamond', serif; font-size: 1.7rem; font-style: italic; color: var(--sage-deeper); margin-bottom: 12px; }
+  .confirm-msg { font-size: 0.88rem; line-height: 1.8; color: var(--text-mid); }
+  .confirm-sig { margin-top: 18px; font-family: 'Cinzel', serif; font-size: 0.58rem; letter-spacing: 0.28em; color: var(--sage); text-transform: uppercase; }
+
+  /* FOOTER */
+  footer { background: var(--sage-deeper); color: rgba(240,245,240,0.45); text-align: center; padding: 36px 20px; font-size: 0.75rem; letter-spacing: 0.1em; }
+  footer .footer-names { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-style: italic; color: var(--gold-light); margin-bottom: 8px; }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes bounceDown {
+    0%,100% { transform: translateX(-50%) translateY(0); opacity: 0.65; }
+    50%     { transform: translateX(-50%) translateY(8px); opacity: 0.35; }
+  }
+  @keyframes shake {
+    0%,100% { transform: translateX(0); } 20% { transform: translateX(-6px); }
+    40% { transform: translateX(6px); }   60% { transform: translateX(-4px); }
+    80% { transform: translateX(4px); }
+  }
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.85s ease, transform 0.85s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  @media (max-width: 360px) { .corner { width: 64px; height: 64px; } .names { font-size: 2.6rem; } }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="corner corner--tl">
+    <svg viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M8 8 C8 8 8 70 8 90 Q8 102 20 102 L102 102" stroke="#a8c5ab" stroke-width="1.2" fill="none"/>
+      <path d="M8 8 C8 8 70 8 90 8 Q102 8 102 20 L102 102" stroke="#a8c5ab" stroke-width="0.5" fill="none" opacity="0.4"/>
+      <circle cx="8" cy="8" r="3" fill="#a8c5ab"/>
+      <path d="M8 35 Q28 28 22 8" stroke="#a8c5ab" stroke-width="0.9" fill="none"/>
+      <path d="M35 8 Q28 28 8 35" stroke="#a8c5ab" stroke-width="0.9" fill="none"/>
+    </svg>
+  </div>
+  <div class="corner corner--tr"><svg viewBox="0 0 110 110" fill="none"><path d="M8 8 C8 8 8 70 8 90 Q8 102 20 102 L102 102" stroke="#a8c5ab" stroke-width="1.2" fill="none"/><path d="M8 8 C8 8 70 8 90 8 Q102 8 102 20 L102 102" stroke="#a8c5ab" stroke-width="0.5" fill="none" opacity="0.4"/><circle cx="8" cy="8" r="3" fill="#a8c5ab"/><path d="M8 35 Q28 28 22 8" stroke="#a8c5ab" stroke-width="0.9" fill="none"/><path d="M35 8 Q28 28 8 35" stroke="#a8c5ab" stroke-width="0.9" fill="none"/></svg></div>
+  <div class="corner corner--bl"><svg viewBox="0 0 110 110" fill="none"><path d="M8 8 C8 8 8 70 8 90 Q8 102 20 102 L102 102" stroke="#a8c5ab" stroke-width="1.2" fill="none"/><path d="M8 8 C8 8 70 8 90 8 Q102 8 102 20 L102 102" stroke="#a8c5ab" stroke-width="0.5" fill="none" opacity="0.4"/><circle cx="8" cy="8" r="3" fill="#a8c5ab"/><path d="M8 35 Q28 28 22 8" stroke="#a8c5ab" stroke-width="0.9" fill="none"/><path d="M35 8 Q28 28 8 35" stroke="#a8c5ab" stroke-width="0.9" fill="none"/></svg></div>
+  <div class="corner corner--br"><svg viewBox="0 0 110 110" fill="none"><path d="M8 8 C8 8 8 70 8 90 Q8 102 20 102 L102 102" stroke="#a8c5ab" stroke-width="1.2" fill="none"/><path d="M8 8 C8 8 70 8 90 8 Q102 8 102 20 L102 102" stroke="#a8c5ab" stroke-width="0.5" fill="none" opacity="0.4"/><circle cx="8" cy="8" r="3" fill="#a8c5ab"/><path d="M8 35 Q28 28 22 8" stroke="#a8c5ab" stroke-width="0.9" fill="none"/><path d="M35 8 Q28 28 8 35" stroke="#a8c5ab" stroke-width="0.9" fill="none"/></svg></div>
+
+  <div class="hero-content">
+    <p class="hero-eyebrow">Дорогие</p>
+    <p class="hero-parents">Gleb, Michele<br>и маленькая Sofia</p>
+    <div class="divider-ornament"><div class="diamond"></div></div>
+    <h1 class="names">
+      <em>Влад</em>
+      <span class="ampersand">&amp;</span>
+      <em>Зайна</em>
+    </h1>
+    <div class="divider-ornament"><div class="diamond"></div></div>
+    <p class="hero-date">Суббота · 6 Февраля 2026</p>
+  </div>
+  <div class="scroll-hint">Листать</div>
+</section>
+
+<div class="page">
+
+  <section class="section reveal">
+    <p class="section-label">Приглашение</p>
+    <h2 class="section-title">Праздник Любви</h2>
+    <hr class="sage-rule" style="margin-bottom:28px;">
+    <p class="section-body">
+      С переполненными радостью сердцами мы приглашаем вас разделить с нами самый важный день нашей жизни — день, когда мы соединим наши судьбы и начнём новую прекрасную главу вместе.
+    </p>
+    <p class="section-body" style="margin-top:16px;">
+      Ваше присутствие, смех и тепло значат для нас всё. Ждём вас на вечер любви и торжества под небом Филиппин.
+    </p>
+  </section>
+
+  <div class="details-band reveal">
+    <div class="inner">
+      <p class="section-label" style="color:var(--sage-pale);">Детали</p>
+      <h2 class="section-title" style="color:#f0f5f0;">Когда &amp; Где</h2>
+      <div class="details-grid">
+        <div class="detail-item">
+          <div class="detail-icon">🗓</div>
+          <div class="detail-label">Дата</div>
+          <div class="detail-value">Суббота<br>6 Фев 2026</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-icon">⏰</div>
+          <div class="detail-label">Начало Церемонии</div>
+          <div class="detail-value">16:00</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-icon">📍</div>
+          <div class="detail-label">Место</div>
+          <div class="detail-value">General Santos City<br><small>South Cotabato, Филиппины</small></div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-icon">👗</div>
+          <div class="detail-label">Дресс-код</div>
+          <div class="detail-value">Торжественный<br><small>Шалфей &amp; золото приветствуются</small></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="rsvp-band reveal">
+    <p class="section-label">Подтверждение</p>
+    <h2 class="section-title" style="color:var(--sage-deeper);">Придёте?</h2>
+    <hr class="sage-rule" style="margin-bottom:6px;">
+    <p style="font-size:0.87rem;color:var(--text-soft);margin-top:14px;">Пожалуйста, ответьте до 15 января 2026</p>
+
+    <div class="rsvp-form" id="rsvpForm">
+      <input type="text" id="guestName" placeholder="Ваше полное имя" autocomplete="name" value="Gleb, Michele и Sofia" />
+      <div class="answer-btns">
+        <button class="answer-btn" id="btnYes" onclick="selectAnswer('yes')">
+          <span class="btn-icon">🌿</span>
+          Придём с радостью!
+        </button>
+        <button class="answer-btn" id="btnNo" onclick="selectAnswer('no')">
+          <span class="btn-icon">💌</span>
+          К сожалению, не сможем
+        </button>
+      </div>
+      <button class="btn-rsvp" id="submitBtn" onclick="submitRSVP()">Подтвердить</button>
+      <p class="rsvp-note">Ваш ответ будет отправлен напрямую Владу.</p>
+    </div>
+
+    <div class="rsvp-success" id="rsvpSuccess">
+      <div class="confirm-icon">🌿</div>
+      <div class="confirm-title">До встречи!</div>
+      <div class="confirm-msg" id="successMsg"></div>
+      <div class="confirm-sig">Влад &amp; Зайна · 6 Фев 2026</div>
+    </div>
+    <div class="rsvp-decline" id="rsvpDecline">
+      <div class="confirm-icon">💌</div>
+      <div class="confirm-title">Нам будет вас не хватать</div>
+      <div class="confirm-msg" id="declineMsg"></div>
+      <div class="confirm-sig">Влад &amp; Зайна</div>
+    </div>
+  </div>
+
+  <section class="section reveal" style="padding-bottom:60px;">
+    <p class="section-label">С Любовью</p>
+    <h2 class="section-title" style="font-style:italic;">Мы не можем дождаться встречи с вами</h2>
+    <hr class="sage-rule" style="margin-bottom:28px;">
+    <p class="section-body">
+      Ваше присутствие, улыбки и благословение значат для нас безмерно много. Вместе мы создадим воспоминания на всю жизнь под небом Филиппин.
+    </p>
+    <p class="section-body" style="margin-top:16px;">
+      А маленькая София пусть знает — этот день станет особенным и для неё тоже. 🌿
+    </p>
+    <p style="margin-top:34px;font-family:'Cormorant Garamond',serif;font-size:1.85rem;font-style:italic;color:var(--sage-deeper);">
+      Влад &amp; Зайна
+    </p>
+  </section>
+</div>
+
+<footer>
+  <div class="footer-names">Влад &amp; Зайна</div>
+  <div>6 Февраля 2026 · General Santos City, Филиппины</div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  let selectedAnswer = null;
+
+  function selectAnswer(val) {
+    selectedAnswer = val;
+    document.getElementById('btnYes').className = 'answer-btn' + (val === 'yes' ? ' selected-yes' : '');
+    document.getElementById('btnNo').className  = 'answer-btn' + (val === 'no'  ? ' selected-no'  : '');
+  }
+
+  function submitRSVP() {
+    const name = document.getElementById('guestName').value.trim();
+    if (!name) { shake('guestName'); return; }
+    if (!selectedAnswer) {
+      ['btnYes','btnNo'].forEach(id => {
+        const el = document.getElementById(id);
+        el.style.borderColor = '#7a9e7e';
+        setTimeout(() => el.style.borderColor = '', 900);
+      });
+      return;
+    }
+
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.textContent = 'Отправляем…';
+
+    const FORM_ID    = 'YOUR_GOOGLE_FORM_ID';
+    const ENTRY_NAME = 'entry.YOUR_NAME_ENTRY_ID';
+    const ENTRY_ANS  = 'entry.YOUR_ANSWER_ENTRY_ID';
+
+    const answerText = selectedAnswer === 'yes' ? 'Придём с радостью! ✅' : 'К сожалению, не сможем ❌';
+    const formUrl = `https://docs.google.com/forms/d/${FORM_ID}/formResponse?${ENTRY_NAME}=${encodeURIComponent(name)}&${ENTRY_ANS}=${encodeURIComponent(answerText)}&submit=Submit`;
+
+    fetch(formUrl, { method: 'POST', mode: 'no-cors' })
+      .catch(() => {})
+      .finally(() => {
+        setTimeout(() => {
+          document.getElementById('rsvpForm').style.display = 'none';
+          if (selectedAnswer === 'yes') {
+            document.getElementById('successMsg').innerHTML =
+              `Спасибо, <strong>${name}</strong>! Мы так рады, что вы будете рядом с нами <strong>6 февраля 2026</strong> в General Santos City. Это будет незабываемый вечер! 🥂`;
+            document.getElementById('rsvpSuccess').style.display = 'block';
+          } else {
+            document.getElementById('declineMsg').innerHTML =
+              `Спасибо, что сообщили нам, <strong>${name}</strong>. Нам очень жаль, что вы не сможете быть с нами, но мы благодарны за вашу любовь и добрые пожелания. 💛`;
+            document.getElementById('rsvpDecline').style.display = 'block';
+          }
+        }, 500);
+      });
+  }
+
+  function shake(id) {
+    const el = document.getElementById(id);
+    el.style.animation = 'none'; el.style.borderColor = '#e07a5f';
+    el.offsetHeight; el.style.animation = 'shake 0.4s ease';
+    setTimeout(() => { el.style.borderColor = ''; el.style.animation = ''; }, 900);
+  }
+</script>
+</body>
+</html>
